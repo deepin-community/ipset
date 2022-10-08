@@ -1,0 +1,105 @@
+#!/bin/sh
+
+OPTIONS=$(getopt -o h --long help,showboot,binary-test,vmimage-dir:,vmimage-distribution:,mirror:,customize: \
+  -n 'ipset-autopkgtest' -- "$@")
+
+if [ $? != 0 ]; then
+  echo "Invalid arguments ..." >&2
+  exit 1
+fi
+
+assert_pkg() {
+  pkg=$1
+
+  if ! dpkg -l | grep -w "$pkg" | grep ^ii >/dev/null 2>&1; then
+    echo "$pkg is required"
+    exit 1
+  fi
+}
+
+assert_pkg vmdebootstrap
+assert_pkg autopkgtest
+
+DEFAULT_VMIMAGE_DIR=~/.local/lib/ipset-autopkgtest
+DEFAULT_VMIMAGE_DISTRIBUTION=sid
+DEFAULT_MIRROR=https://deb.debian.org/debian
+DEFAULT_CUSTOMIZE=/usr/share/autopkgtest/setup-commands/setup-testbed
+VMIMAGE_DIR=$DEFAULT_VMIMAGE_DIR
+VMIMAGE_DISTRIBUTION=$DEFAULT_VMIMAGE_DISTRIBUTION
+MIRROR=$DEFAULT_MIRROR
+CUSTOMIZE=$DEFAULT_CUSTOMIZE
+
+TESTSOURCE=
+QEMU_OPT=
+
+show_help() {
+  cat <<EOF
+** autopkgtest wrapper for ipset
+Usage: $0 [options] [testsrc]
+Options
+  --showboot                    : Show VM boot process
+  --vmimage-dir <dir>           : VM image directory
+                                  default: $DEFAULT_VMIMAGE_DIR
+  --vmimage-distribution <dist> : VM image distribution
+                                  default: $DEFAULT_VMIMAGE_DISTRIBUTION
+  --mirror <url>                : Mirror URL
+                                  default: $DEFAULT_MIRROR
+  --customize <path>            : Customize testbed script
+                                  default: $DEFAULT_CUSTOMIZE
+  -h|--help                     : Show help
+
+Test Source
+
+  testsrc can be one of:
+
+  * current directory - need explicitly "."
+  * .dsc file
+  * source package directory
+  * source package name
+  * git URL or URL#branch
+  * .changes file
+EOF
+
+  exit 0
+}
+
+eval set -- "$OPTIONS"
+
+while true; do
+  case "$1" in
+    --showboot)
+      QEMU_OPT="${QEMU_OPT} --show-boot"; shift ;;
+    --vmimage-dir)
+      VMIMAGE_DIR=$2; shift 2 ;;
+    --vmimage-distribution)
+      VMIMAGE_DISTRIBUTION=$2; shift 2 ;;
+    --mirror)
+      MIRROR=$2; shift 2 ;;
+    --customize)
+      CUSTOMIZE=$2; shift 2 ;;
+    -h | --help)
+      show_help
+      shift; break ;;
+    --) TESTSOURCE=$2; shift; break ;;
+    *) break ;;
+  esac
+done
+
+test -z $TESTSOURCE && show_help
+
+VMIMAGE_NAME=ipset-autopkgtest-${VMIMAGE_DISTRIBUTION}.img
+VMIMAGE=${VMIMAGE_DIR}/${VMIMAGE_NAME}
+
+# Prepare VM image
+if [ ! -f ${VMIMAGE} ]; then
+  mkdir -p ${VMIMAGE_DIR}
+
+  sudo vmdebootstrap --verbose --serial-console \
+    --distribution=${VMIMAGE_DISTRIBUTION} \
+    --mirror=${MIRROR} \
+    --systemd-networkd \
+    --customize=${CUSTOMIZE} \
+    --user=adt/adt --size=2000000000 --grub --image=${VMIMAGE}
+fi
+
+autopkgtest ${TESTSOURCE} -- qemu ${QEMU_OPT} ${VMIMAGE}

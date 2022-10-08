@@ -1,0 +1,16 @@
+ipset (6.14-2) experimental; urgency=low
+
+  This version has moved the ipset binary and library to /sbin and
+  /lib/[arch triplet] respectively.
+
+  The ipset should setup the *set* correctly even the system could not mount
+  /usr as same as the iptables does.
+
+  You must ensure that the customized scripts should call the binary
+  /sbin/ipset instead.
+
+  Note: This version not fully supports the issue of /usr not mounted yet,
+  as ipset is still depending on libmnl which installed in /usr/lib.
+  It's still in this state until the libmnl move their library to /lib.
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Tue, 25 Sep 2012 10:17:04 +0700

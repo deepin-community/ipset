@@ -1,0 +1,552 @@
+ipset (7.10-1) unstable; urgency=medium
+
+  * [092dc9f] New upstream version 7.10
+  * [52a665b] Bump Standards-Version to 4.5.1, no changes needed.
+  * [6cfed30] debian/libipset13.symbols: Update new symbols.
+  * [ecb5bde] Reconcile the debian/copyright to fix duplicate-globbing-patterns
+  * [db3429b] Update debian/watch to version 4
+  * [38d6d9a] Add patch to adjust the regression tests in Debian environment
+    * debian/tests/control:
+      - Add iptables to the test dependency as it's priority dropped to
+        optional, the package is not installed in the system under test
+        by default
+    * d/p/drop-unavailable-header-bucketsize-initval-from-test-results.patch:
+      - Drop unavailable header from test results
+    * d/p/workaround--iphash-delete-one-by-one-test-failed.patch:
+      - Drop as unneeded
+    * d/p/ensure-prerequisite-interface.patch:
+      - Ensure the prerequisite interface exist in the system under test
+  * [e44a46b] Fix the breakout-link lintian warning
+    * Install the binary and library in /usr/sbin and
+      /usr/lib/<arch triplet> respectively
+      The lintian warning about the breakout-link of
+      usr/lib/<arch triplet>/libipset.so points to
+      lib/<arch triplet>/libipset.so.13.x.x, install in the proper location
+      would be a solution
+    * debian/libipset-dev.links: Dropped as unneeded
+    * debian/control:
+      - Drop the build dependency with dh-exec as the extra ordinary
+        binary installation is unneeded
+    * debian/tests:
+      - Update the ipset binary to new location
+  * [1b8cf4a] Add patch to fix print format compiler warning
+    * debian/patches/fix-print-format-warning.patch:
+      - Fix the print format compiler warning
+
+ -- Neutron Soutmun <neutrons@debian.org>  Sat, 30 Jan 2021 18:31:37 +0700
+
+ipset (7.6-2) unstable; urgency=medium
+
+  * Re-upload with source only, to unblock the migration policy
+
+ -- Neutron Soutmun <neutrons@debian.org>  Sun, 24 May 2020 16:08:09 +0700
+
+ipset (7.6-1) unstable; urgency=medium
+
+  * [9d920ad] New upstream version 7.6
+    * Closes: #764328
+      - Fixed in https://git.netfilter.org/ipset/commit/?id=cef5530
+  * [6768106] Bump Standards-Version to 4.5.0, no changes needed.
+  * [6c92292] Bump debhelper-compat level to 13.
+  * [a5a1e20] Add explicitly Rules-Requires-Root: no.
+  * [ba902aa] Update bash completion
+    * Add a patch to drop the hashbang from bash completion
+    * Fix the bash completion installation without the execution permission
+      as it's not required anymore
+    * Drop debian/lintian-overrides accordingly, no needed
+  * [849295e] Drop trailing whitespace from debian/changelog.
+  * [2c4bda2] Declare dependency to iptables as Recommends, Closes: #951576.
+  * [da838e1] d/watch: switch to http://ftp.netfilter.org/pub/ipset
+    * The ftp://netfilter.org is unavailable, switch to
+      http endpoint instead
+
+ -- Neutron Soutmun <neutrons@debian.org>  Sat, 23 May 2020 23:23:36 +0700
+
+ipset (6.38-1) unstable; urgency=medium
+
+  * [b80dcfb] New upstream version 6.38 (Closes: #898851)
+  * [01246b1] Update gbp.conf follow the DEP-14 Git packaging repository layout.
+  * [db0f7bf] Change library package name to match sonames
+    * Change libipset3 to libipset11 to match sonames
+    * debian/libipset11.symbols: Update new symbols
+  * [58fffb4] Update Vcs-{Browser,Git} with salsa.debian.org.
+  * [111675a] Bump debhelper compat level to 11.
+  * [e852e62] d/copyright: Update years and Format URL with HTTPS.
+  * [02d4ace] Bump Standards-Version to 4.2.1 (no changes)
+  * [0eabad0] Update Build-Depends on debhelper 11
+    * Update Build-Depends on debhelper (>= 11~)
+    * Drop dh-autoreconf, since compatibility level 10, debhelper enables the
+      autoreconf sequence by default
+  * [090e700] d/p/fix-bash-completion.patch: (Closes: #848940)
+    * Add patch to fix ipset bash completion on bash (>= 4.4.18)
+      Thanks to Martin Großhauser for the patch
+
+ -- Neutron Soutmun <neutrons@debian.org>  Sun, 02 Sep 2018 00:28:18 +0700
+
+ipset (6.34-1) unstable; urgency=medium
+
+  * [da82b06] New upstream version 6.34
+  * [9cb150f] Drop d/p/fix-ipset-cmd-replacement.patch: Merged upstream
+  * [745be35] Bump Standard-Versions to 4.1.1
+    * Change package priority from `extra` (deprecated) to `optional`
+  * [c0ec139] Update lib new symbols.
+  * [5886e8d] Add lintian overrides for
+    * ipset source: debian-watch-uses-insecure-uri.
+  * [85ee414] Cleanup obsoleted bash completion configuration file.
+    Closes: #868097
+  * [2606f64] Update d/p/adjust-test-scripts-for-debian.patch
+    * All workaround patches are not needed, supported by Debian's kernel.
+    * Drop the upstream test case for 'Add more than 2^31 elements in a range',
+      It's not yet supported by Debian's kernel.
+
+ -- Neutron Soutmun <neutrons@debian.org>  Thu, 26 Oct 2017 15:53:31 +0700
+
+ipset (6.32-1) unstable; urgency=medium
+
+  * Upload to unstable
+  * [22ca89c] d/control: maintainer is now the netfilter team, update VCS-*
+  * [ad77df4] d/patches/fix-ipset-cmd-replacement.patch: fix description
+  * [04d66a6] d/control: Bump Standards-Version to 4.0.0, no changes needed
+
+ -- Neutron Soutmun <neutrons@debian.org>  Wed, 21 Jun 2017 11:43:07 +0700
+
+ipset (6.32-1~exp2) experimental; urgency=medium
+
+  * Add a patch to fix test failed to run
+    * debian/patches/fix-ipset-cmd-replacement.patch:
+      - In the upstream test, 'ipset' command should be replaced with
+        '/sbin/ipset' but the recent script adds the line of command to
+        replace it twice. The patch fixes the second replacement.
+  * debian/patches/adjust-test-scripts-for-debian.patch: Refresh the patch
+  * Add workaround patch
+    * debian/patches/workaround-iphash-delete-one-by-one-test-failed.patch:
+      - A workaround patch for iphash delete one-by-one test failed due to
+        the bug [1] in the kernel module.
+      [1] Fix bug: sometimes valid entries in hash:* types of sets were evicted
+          https://git.netfilter.org/ipset/commit/?id=728fed0f689c76cb5cd77499b022764e93d91932
+  * Revise test control file and split patch.
+    Thanks Adam Conrad for suggestion and initial patch.
+    * debian/tests/control:
+      - Drop autopkgtest which is unnecessary.
+      - Depends on kmod and netbase.
+      - Depends on net-tools which the test script requires 'netstat'.
+    * debian/patches/adjust-test-scripts-for-debian.patch,
+      debian/patches/test-installed.patch:
+      - Split Debian's kernel unrelated patch from
+        adjust-test-scripts-for-debian.patch to test-installed.patch.
+        Make it easy for Ubuntu that has a recent kernel than Debian to just
+        drop unnecessary patches. (Closes: #860032)
+  * debian/tests/regression: Add hash:mac.t to the list, Debian kernel supported
+
+ -- Neutron Soutmun <neutrons@debian.org>  Wed, 31 May 2017 08:10:22 +0700
+
+ipset (6.32-1~exp1) experimental; urgency=medium
+
+  * New upstream version 6.32
+  * debian/control: Add "Multi-Arch: same" to libipset-dev package
+
+ -- Neutron Soutmun <neutrons@debian.org>  Thu, 23 Mar 2017 11:22:00 +0700
+
+ipset (6.30-2) unstable; urgency=medium
+
+  * Switch Vcs-Browser to cgit
+  * Drop debian/source/local-options
+    * The extend-diff-ignore = .gbp.conf is not required anymore
+
+ -- Neutron Soutmun <neutrons@debian.org>  Wed, 30 Nov 2016 09:05:14 +0700
+
+ipset (6.30-1) unstable; urgency=medium
+
+  * New upstream version 6.30
+  * Move .gbp.conf to debian/gbp.conf
+  * debian/patches/adjust-test-scripts-for-debian.patch: Refresh
+  * Change my email to neutrons at debian.org
+  * Update debian/copyright
+  * Bump Standards-Version to 3.9.8, no changes needed
+  * debian/tests/control: Fix testsuite-dependency-has-unparsable-elements
+
+ -- Neutron Soutmun <neutrons@debian.org>  Mon, 28 Nov 2016 21:00:28 +0700
+
+ipset (6.29-1) unstable; urgency=medium
+
+  * Imported Upstream version 6.29
+  * Drop a patch
+    * debian/patches/10-fix-link-with-libtool-2.4.4.patch:
+      - It's included in the new upstream release
+  * Upstream rename the ipset bash completion
+    * debian/rules:
+      - In utils/ipset_bash_completion/, the upstream rename
+        "ipset_bash_completion" with "ipset", update accordingly.
+  * Bump Standards-Version, update Vcs-* with secure-uri
+    * Bump Standards-Version to 3.9.7, no changes needed
+    * Update Vcs-* with secure-uri
+  * Adjust upstream's test scripts to work with Debian
+    * debian/patches/adjust-test-scripts-for-debian.patch:
+      - Drop missing lines in the results that the current Debian Linux
+        kernel does not support yet.
+      - Adjust some size, memory size and line count in the expected results
+        to match the actual results.
+    * debian/tests/control:
+      - The test requires "netmask" package
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Fri, 18 Mar 2016 07:54:18 +0700
+
+ipset (6.27-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix build with newer libtool. (Closes: #814582)
+    - add debian/patches/10-fix-link-with-libtool-2.4.4.patch
+
+ -- Chris Boot <bootc@debian.org>  Sat, 20 Feb 2016 16:00:10 +0000
+
+ipset (6.27-1) unstable; urgency=medium
+
+  * Imported Upstream version 6.27
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Sat, 14 Nov 2015 07:58:23 +0700
+
+ipset (6.26-1) unstable; urgency=medium
+
+  * Imported Upstream version 6.26
+  * debian/patches/Fix-grammar-error-in-manpage.patch: Drop, merged upstream.
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Wed, 09 Sep 2015 16:57:55 +0700
+
+ipset (6.25.1-1) unstable; urgency=medium
+
+  * Imported Upstream version 6.25.1
+  * Refresh patch
+    * debian/patches/05-delay-the-set-with-timeout-resizing-test.patch
+  * Drop XS-Testsuite: autopkgtest
+    * As of dpkg 1.17.11, this field is automaticall added by dpkg-source
+      with the value "autopkgtest" if there is a non-empty
+      debian/tests/control.
+  * Install ipset bash completion to new location
+    * debian/rules, debian/ipset.install, debian/lintian-overrides:
+      - Install ipset bash completion to
+        /usr/share/bash-completion/completions
+        See: https://bugs.debian.org/776954
+  * Proposed small wording in manpage has been merged upstream.
+    Closes: #780336
+  * Add fix grammar error in manpage patch
+    * debian/patches/Fix-grammar-error-in-manpage.patch:
+      - Fix "allow_to" to "allows_one_to"
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Mon, 20 Jul 2015 14:24:30 +0700
+
+ipset (6.24-1) unstable; urgency=medium
+
+  * Imported Upstream version 6.24
+  * Drop a patch
+    * debian/patches/fix-hyphen-used-as-minus-sign-in-manpage.patch:
+      - Dropped, merged upstream.
+  * Bump standards-version to 3.9.6, no changes needed
+  * Update debian symbols file
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Fri, 02 Jan 2015 08:53:11 +0700
+
+ipset (6.23-2) unstable; urgency=medium
+
+  * Make libipset3 package go to the "libs" section
+    * debian/control:
+      - libipset3 should be the "libs" section instead of "net".
+        Thanks to Christoph Anton Mitterer. (Closes: #762847)
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Fri, 26 Sep 2014 08:45:42 +0700
+
+ipset (6.23-1) unstable; urgency=medium
+
+  * Imported Upstream version 6.23
+  * Drop patches, merged upstream
+    * d/p/01-fix-grammar-error-in-manpage.patch,
+      d/p/02-fix-printf-format-warning.patch,
+      d/p/03-Pass-IPSET_BIN-to-test-scripts-to-change-binary-loca.patch:
+      - Drop, merged upstream.
+    * d/p/04-temporary-drop-ipmarkhash-test.patch:
+      - Kernel shipped with Debian already support the ipmarkhash module.
+  * Update Debian symbols file
+  * Explicitly add tests list to debian regression test
+    * debian/tests/regression:
+      - There are some ipset modules that Debian does not support in the
+        current Linux kernel and the patch apply to the source test script
+        is an inconvenient way. Therefore, add tests list to the debian
+        regression test file is easy and maintainable.
+  * Add patch
+    * debian/patches/fix-hyphen-used-as-minus-sign-in-manpage.patch:
+      - Fix hyphen used as minus sign in manpage.
+  * debian/copyright: Update copyright years
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Wed, 17 Sep 2014 10:04:15 +0700
+
+ipset (6.21.1-2) unstable; urgency=low
+
+  * Add tests follow the DEP8
+    * debian/control:
+      - Add XS-Testsuite: autopkgtest
+    * debian/tests/control:
+      - Add test control file
+    * debian/tests/regression:
+      - Add regression test wrapper for tests/runtest.sh
+  * Add a patch to make the test scripts run in "as-installed" situation
+    * d/patches/03-Pass-IPSET_BIN-to-test-scripts-to-change-binary-loca.patch:
+      - It is required to make the test scripts run in "as-installed"
+        situation, the scripts should invokes the system installed "ipset"
+        binary.
+  * Add a patch to drop unsupported module test
+    * debian/patches/03-temporary-drop-ipmarkhash-test.patch:
+      - Temporary drop the ipmarkhash test as the Debian kernel is not
+        support yet.
+  * Add a patch to delay the set with timeout resizing test
+    * debian/patches/05-delay-the-set-with-timeout-resizing-test.patch:
+      - The set with timeout resizing sometimes finish early, the condition
+        fail with false-positive. Add 1 more second delay to satisfy the
+        condition check.
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Fri, 04 Apr 2014 16:23:02 +0700
+
+ipset (6.21.1-1) unstable; urgency=low
+
+  * Imported Upstream version 6.21.1
+  * Drop a patch that has been merged upstream
+    * debian/patches/01-Set-extglob-shell-option-in-global-scoped.patch:
+      - Drop, merged upstream.
+  * Bump Standards-Version to 3.9.5, no changes needed
+  * Add lintian-overrides
+    * debian/lintian-overrides:
+      - Overrides "ipset: shell-script-fails-syntax-check
+        etc/bash_completion.d/ipset", false-positives as the script using
+        "extglob"
+  * Update symbols file
+  * debian/patches/01-fix-grammar-error-in-manpage.patch:
+    - Replace Allows_to with Allows_one_to.
+  * debian/patches/02-fix-printf-format-warning.patch:
+    - Fix printf format warning.
+  * Switch debian package compression to xz
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Sat, 08 Mar 2014 13:06:49 +0700
+
+ipset (6.20.1-1) unstable; urgency=low
+
+  * Imported Upstream version 6.20.1
+  * Drop d/p/02-Fix-hyphen-used-as-minus-sign-in-manpage.patch, fixed upstream
+  * debian/libipset3.symbols: Update symbols file
+  * Update Vcs-Git field to canonical URI
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Mon, 28 Oct 2013 10:35:36 +0700
+
+ipset (6.19-1) unstable; urgency=low
+
+  * Imported Upstream version 6.19 (upload to unstable)
+  * debian/rules, debian/source/options: Switch deb compression to bzip2
+  * debian/libipset3.symbols: Update, upstream add new symbol.
+  * Add patches to fix
+    * d/p/01-Set-extglob-shell-option-in-global-scoped.patch:
+      - Fix bash completion syntax error.
+    * d/p/02-Fix-hyphen-used-as-minus-sign-in-manpage.patch:
+      - Fix hyphen used as minus sign in manpage.
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Fri, 10 May 2013 11:49:31 +0700
+
+ipset (6.18-2) experimental; urgency=low
+
+  * Get library so version on build-time instead of hardcoded
+    * debian/rules:
+      - Get library so version on build-time and passing to
+        dh_link for symlinks installation.
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Wed, 24 Apr 2013 16:02:52 +0700
+
+ipset (6.18-1) experimental; urgency=low
+
+  * Imported Upstream version 6.18
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Tue, 16 Apr 2013 09:14:50 +0700
+
+ipset (6.17-1) experimental; urgency=low
+
+  * Imported Upstream version 6.17
+  * Add dh-autoreconf to fix lintian warning
+    * debian/control, debian/rules:
+      - Add dh-autoreconf to fix the lintian warning
+        (outdated-autotools-helper-file)
+  * debian/{rules,ipset.install}: Install ipset bash completion.
+  * debian/copyright: Update copyright years.
+  * debian/rules: Disable silent rules
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Thu, 28 Feb 2013 10:03:44 +0700
+
+ipset (6.16.1-1) experimental; urgency=low
+
+  * Imported Upstream version 6.16.1
+  * Bump debian-news entry version to 6.14-2
+    * debian/NEWS:
+      - Bump entry version to 6.14-2 to satisfy lintian as 6.14-1 is
+        no longer exists.
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Wed, 16 Jan 2013 08:47:50 +0700
+
+ipset (6.14-2) experimental; urgency=low
+
+  * Imported Upstream version 6.14
+  * Bump standard-versions to 3.9.4, no changes needed
+  * Move ipset and lib to /sbin and /lib/[arch triplet] respectively
+    * debian/rules, debian/{ipset,libipset2,libipset-dev}.install:
+      - Move ipset and lib to the path which independent of /usr.
+        It should setup the *set* correctly even the system could not mount
+        /usr as same as the iptables does.
+        (thanks to Henrique de Moraes Holschuh for suggestion)
+  * Add debian/NEWS
+    - Inform the users that ipset and lib have been moved to /sbin and
+      /lib/[arch triplet] respectively and it does not support the /usr not
+      mounted yet until the libmnl moves their library to /lib.
+  * Add -fstack-protector-all to CFLAGS
+    * debian/rules:
+      - Add -fstack-protector-all to CFLAGS to force ipset binary hardened
+        with stack protector properly.
+  * Bump the package name to libipset3 as SONAME changes
+  * Install static libs and so symlink in /usr/lib/<arch-triplet>
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Tue, 25 Sep 2012 10:17:04 +0700
+
+ipset (6.12.1-1) unstable; urgency=low
+
+  * Imported Upstream version 6.12.1
+  * debian/patches/99-ipset-shared-libs.patch:
+    - Drop as the upstream provides the configuration parameters to force
+      the ipset binary to link with shared lib.
+  * debian/patches/90-fix-typo.patch: Add typo fix
+  * Enable settype dynamic modules support
+    * debian/rules:
+      - Add --enable-settype-modules to configure.
+        All settype modules still build as static which included in libipset
+        as usual but the ipset binary could runtime load the additional modules
+        installed at /usr/lib/[arch triplet]/ipset.
+    * debian/control:
+      - Add libltdl-dev to build-dep.
+  * debian/libipset2.symbols: Add symbols file
+  * debian/control:
+      - Set debhelper (>= 9.20120115~). (thanks, Arno Töll)
+      - Drop dh-autoreconf from build-deps as it's unnecessary.
+        (thanks, Arno Töll)
+      - Adjust the packages description which should not start with capital
+        letter. (thanks, Arno Töll)
+  * debian/rules: Drop autoreconf addon from debhelper configuration.
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Thu, 10 May 2012 23:48:56 +0700
+
+ipset (6.11-2) unstable; urgency=low
+
+  * Update debian/control
+    * debian/control:
+      - Bump Standards-Version to 3.9.3, no changes needed.
+      - Change Architecture to linux-any as iptables only supports linux.
+        (Closes: #647656 - uninstallable on kfreebsd-amd64)
+      - Add iptables to ipset dependency.
+  * Bump dh compat to 9
+    * debian/compat, debian/control: Bump dh compat to 9.
+    * debian/rules:
+      - Simplify hardening build flags and multiarch support logic.
+  * Update copyright format url to version 1.0
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Tue, 28 Feb 2012 09:56:38 +0700
+
+ipset (6.11-1) unstable; urgency=low
+
+  (Closes: #656343)
+
+  [ Neutron Soutmun ]
+  * Imported Upstream version 6.11
+  * Switch to 3.0 (quilt) Debian source format
+  * Update compat level and control files
+    * debian/compat:
+      - Bump compat level to 8.
+    * debian/control:
+      - Update me as the maintainer.
+      - Bump Standards-Version to 3.9.2, no changes needed.
+      - Add/update build-deps:
+        * Update debhelper (>= 8.1.3~) and add dpkg-dev (>= 1.16.1~)
+          to support multiarch builds and get hardening build flags on
+          dpkg-buildflags is being invoked.
+        * Add dh-autoreconf.
+        * libmnl-dev  which is required by ipset utility.
+        * Add pkg-config which is required by configure script to check
+          whether the libmnl has already been installed.
+      - Add Homepage.
+      - Add Vcs-{Browser,Git} point to Alioth.
+      - The ipset package should conflicts the xtables-addons-common which
+        also provides the ipset utility binary.
+      - Add more packages:
+        * libipset-dev, libipset2 which provide the runtime/development
+          libraries and header files. (MultiArch supported)
+      - Update the descriptions.
+    * debian/control.modules:
+      - Drop as the ipset already included in the mainline kernel, no needs
+        to build as the modules.
+    * debian/README.Debian:
+      - Drop outdated Debian readme file.
+  * Update rules and drop rules.modules
+    * debian/rules:
+      - Using new debhelper build rules set.
+      - Get DEB_HOST_MULTIARCH which is required by libipset for MultiArch
+        support.
+      - Set hardening build flags by using dpkg-buildflags to exports the
+        compilation flags and override the dh_auto_configure.
+      - Set --libdir to comply with MultiArch by using DEB_HOST_MULTIARCH.
+    * debian/rules.modules:
+      - Drop as unneeded.
+  * Add installation files for each package
+    * debian/ipset.{install,docs,manpages}:
+      - Install binary, documents and manpages.
+    * debian/libipset{2,-dev}:
+      - Install runtime/development libraries and header files.
+  * Update copyright file to DEP-5 format
+  * Add patch to build ipset against shared libs
+    * debian/patches/99-ipset-shared-libs.patch, debian/patches/series:
+      - Add patch.
+  * Drop unnecessary lintian override file
+  * Add watch file
+  * Drop unused override_dh_auto_clean from rules
+
+  [ Dmitry Smirnov <onlyjob@member.fsf.org> ]
+  * debian/copyright: correct DEP-5 format URL
+  * preparing for coordinated upload with xtables-addons 1.41
+  * adding forgotten debian/changelog
+  * tightening depends on libipset
+  * adding libmnl-dev to libipset-dev build-deps
+
+ -- Neutron Soutmun <neo.neutron@gmail.com>  Sat, 04 Feb 2012 14:44:50 +0700
+
+ipset (2.5.0-1) unstable; urgency=low
+
+  * New upstream release; closes: #503683.
+  * Ship ipset-source kernel modules package.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sat, 09 May 2009 18:17:13 -0400
+
+ipset (2.3.3-1) unstable; urgency=low
+
+  * New upstream release; closes: #481382.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sat, 19 Jul 2008 20:56:33 -0400
+
+ipset (2.3.0-1) unstable; urgency=low
+
+  * New upstream release with iptreemap support; closes: #445389.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Mon, 08 Oct 2007 12:09:11 -0400
+
+ipset (2.2.9a-1) unstable; urgency=low
+
+  * New upstream release which removes dependencies on kernel headers;
+    closes: #389860.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sat, 14 Oct 2006 22:10:46 -0400
+
+ipset (2.2.9-1) unstable; urgency=low
+
+  * Initial release, closes: #380148.
+  * Header files from patch-o-matic-ng were extracted from netfilter.org
+    sources and placed in the ipset source package to avoid the need for an
+    extracted Linux kernel tree with the ipset patches in order to build.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sun, 27 Aug 2006 13:56:39 -0400

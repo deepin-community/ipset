@@ -1,0 +1,900 @@
+Description: Drop unavailable header from test results 
+ The bucketsize and initval headers are unvailable in system under test,
+ Debian's Linux kernel 5.10.0-1-amd64, should be dropped until
+ the kernel support
+Author: Neutron Soutmun <neo.neutron@gmail.com>
+Forwarded: not-needed 
+Last-Update: 2021-01-17
+
+diff --git a/tests/comment.t.list2 b/tests/comment.t.list2
+index 8fc69f2..d01a025 100644
+--- a/tests/comment.t.list2
++++ b/tests/comment.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,net
+ Revision: 3
+-Header: family inet hashsize 128 maxelem 65536 comment bucketsize 12 initval 0xa48336cf
++Header: family inet hashsize 128 maxelem 65536 comment
+ Size in memory: 1190
+ References: 0
+ Number of entries: 4
+diff --git a/tests/comment.t.list21 b/tests/comment.t.list21
+index 416db40..d01f974 100644
+--- a/tests/comment.t.list21
++++ b/tests/comment.t.list21
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 comment bucketsize 12 initval 0x8a1632dd
++Header: family inet hashsize 1024 maxelem 65536 timeout 4 comment
+ Size in memory: 50132
+ References: 0
+ Number of entries: 512
+diff --git a/tests/comment.t.list22 b/tests/comment.t.list22
+index 4cfdabe..30e2007 100644
+--- a/tests/comment.t.list22
++++ b/tests/comment.t.list22
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 comment bucketsize 12 initval 0x8e7fb9de
++Header: family inet hashsize 1024 maxelem 65536 timeout 4 comment
+ Size in memory: 40834
+ References: 0
+ Number of entries: 256
+diff --git a/tests/comment.t.list3 b/tests/comment.t.list3
+index b6eab32..bd884cb 100644
+--- a/tests/comment.t.list3
++++ b/tests/comment.t.list3
+@@ -1,7 +1,7 @@
+ Name: a
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xe2558329
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 336
+ References: 1
+ Number of entries: 0
+@@ -10,7 +10,7 @@ Members:
+ Name: b
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x0dfa7d5d
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 336
+ References: 1
+ Number of entries: 0
+@@ -19,7 +19,7 @@ Members:
+ Name: c
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x8fada201
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 336
+ References: 1
+ Number of entries: 0
+diff --git a/tests/hash:ip,mark.t.list0 b/tests/hash:ip,mark.t.list0
+index 1df024f..04ef660 100644
+--- a/tests/hash:ip,mark.t.list0
++++ b/tests/hash:ip,mark.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,mark
+ Revision: 3
+-Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x30edb64c
++Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 592
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip,mark.t.list1 b/tests/hash:ip,mark.t.list1
+index 34fafcc..e2249a9 100644
+--- a/tests/hash:ip,mark.t.list1
++++ b/tests/hash:ip,mark.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,mark
+ Revision: 3
+-Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x139cd632
++Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 592
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:ip,port,ip.t.list0 b/tests/hash:ip,port,ip.t.list0
+index f34c24a..b603dc0 100644
+--- a/tests/hash:ip,port,ip.t.list0
++++ b/tests/hash:ip,port,ip.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,ip
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x7713f039
++Header: family inet hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 664
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip,port,ip.t.list1 b/tests/hash:ip,port,ip.t.list1
+index e81e0ec..59f7625 100644
+--- a/tests/hash:ip,port,ip.t.list1
++++ b/tests/hash:ip,port,ip.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,ip
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x87fc0d22
++Header: family inet hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 664
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:ip,port,net.t.list0 b/tests/hash:ip,port,net.t.list0
+index 45ab21c..c182064 100644
+--- a/tests/hash:ip,port,net.t.list0
++++ b/tests/hash:ip,port,net.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,net
+ Revision: 8
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x882e1e10
++Header: family inet hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 920
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip,port.t.list0 b/tests/hash:ip,port.t.list0
+index b1541f5..ea04dda 100644
+--- a/tests/hash:ip,port.t.list0
++++ b/tests/hash:ip,port.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0xf8e65168
++Header: family inet hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 592
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip,port.t.list1 b/tests/hash:ip,port.t.list1
+index 4471ce6..218c3e5 100644
+--- a/tests/hash:ip,port.t.list1
++++ b/tests/hash:ip,port.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x881c5fa0
++Header: family inet hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 592
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:ip,port.t.list2 b/tests/hash:ip,port.t.list2
+index ffaedb5..43713df 100644
+--- a/tests/hash:ip,port.t.list2
++++ b/tests/hash:ip,port.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x819addf6
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 480
+ References: 0
+ Number of entries: 3
+diff --git a/tests/hash:ip.t.list0 b/tests/hash:ip.t.list0
+index efa642f..9855723 100644
+--- a/tests/hash:ip.t.list0
++++ b/tests/hash:ip.t.list0
+@@ -1,6 +1,6 @@
+ Name: test
+ Type: hash:ip
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x00000000
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 464
+ References: 0
+ Number of entries: 1
+diff --git a/tests/hash:ip.t.list1 b/tests/hash:ip.t.list1
+index 5b832d9..9a63809 100644
+--- a/tests/hash:ip.t.list1
++++ b/tests/hash:ip.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 128 maxelem 65536 netmask 24 timeout 4 bucketsize 12 initval 0xbc66e38a
++Header: family inet hashsize 128 maxelem 65536 netmask 24 timeout 4
+ Size in memory: 528
+ References: 0
+ Number of entries: 1
+diff --git a/tests/hash:ip.t.list2 b/tests/hash:ip.t.list2
+index 3198a72..3910d11 100644
+--- a/tests/hash:ip.t.list2
++++ b/tests/hash:ip.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x3723bb8f
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 464
+ References: 0
+ Number of entries: 2
+diff --git a/tests/hash:ip.t.list3 b/tests/hash:ip.t.list3
+index a68b731..01403cc 100644
+--- a/tests/hash:ip.t.list3
++++ b/tests/hash:ip.t.list3
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 128 maxelem 65536 netmask 24 timeout 4 bucketsize 12 initval 0xfe970e91
++Header: family inet hashsize 128 maxelem 65536 netmask 24 timeout 4
+ Size in memory: 528
+ References: 0
+ Number of entries: 3
+diff --git a/tests/hash:ip6,mark.t.list0 b/tests/hash:ip6,mark.t.list0
+index 39a48f6..85239dd 100644
+--- a/tests/hash:ip6,mark.t.list0
++++ b/tests/hash:ip6,mark.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,mark
+ Revision: 3
+-Header: family inet6 markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x861e4c6a
++Header: family inet6 markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 736
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip6,mark.t.list1 b/tests/hash:ip6,mark.t.list1
+index b2c4dd2..06846b1 100644
+--- a/tests/hash:ip6,mark.t.list1
++++ b/tests/hash:ip6,mark.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,mark
+ Revision: 3
+-Header: family inet6 markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x8e5240e7
++Header: family inet6 markmask 0xffffffff hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 736
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:ip6,port,ip6.t.list0 b/tests/hash:ip6,port,ip6.t.list0
+index a7aaced..0555471 100644
+--- a/tests/hash:ip6,port,ip6.t.list0
++++ b/tests/hash:ip6,port,ip6.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,ip
+ Revision: 6
+-Header: family inet6 hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0xae2818a9
++Header: family inet6 hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 880
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip6,port,ip6.t.list1 b/tests/hash:ip6,port,ip6.t.list1
+index 1e735c1..1d7155f 100644
+--- a/tests/hash:ip6,port,ip6.t.list1
++++ b/tests/hash:ip6,port,ip6.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,ip
+ Revision: 6
+-Header: family inet6 hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0xb9a9f4a5
++Header: family inet6 hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 880
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:ip6,port,net6.t.list0 b/tests/hash:ip6,port,net6.t.list0
+index 3e92bee..c352ae6 100644
+--- a/tests/hash:ip6,port,net6.t.list0
++++ b/tests/hash:ip6,port,net6.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,net
+ Revision: 8
+-Header: family inet6 hashsize 1024 maxelem 65536 bucketsize 12 initval 0xa5d3d0fa
++Header: family inet6 hashsize 1024 maxelem 65536
+ Size in memory: 1808
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip6,port.t.list0 b/tests/hash:ip6,port.t.list0
+index 9fca34a..91b36c9 100644
+--- a/tests/hash:ip6,port.t.list0
++++ b/tests/hash:ip6,port.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port
+ Revision: 6
+-Header: family inet6 hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x013bd339
++Header: family inet6 hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 736
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:ip6,port.t.list1 b/tests/hash:ip6,port.t.list1
+index 46fdea2..43196d5 100644
+--- a/tests/hash:ip6,port.t.list1
++++ b/tests/hash:ip6,port.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port
+ Revision: 6
+-Header: family inet6 hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0x9f983aa9
++Header: family inet6 hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 736
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:ip6.t.list0 b/tests/hash:ip6.t.list0
+index 7dbe3dd..07e32d1 100644
+--- a/tests/hash:ip6.t.list0
++++ b/tests/hash:ip6.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0xb377cb25
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 504
+ References: 0
+ Number of entries: 1
+diff --git a/tests/hash:ip6.t.list1 b/tests/hash:ip6.t.list1
+index c839bea..7634d36 100644
+--- a/tests/hash:ip6.t.list1
++++ b/tests/hash:ip6.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet6 hashsize 128 maxelem 65536 netmask 64 timeout 4 bucketsize 12 initval 0xc4b28af2
++Header: family inet6 hashsize 128 maxelem 65536 netmask 64 timeout 4
+ Size in memory: 584
+ References: 0
+ Number of entries: 1
+diff --git a/tests/hash:ip6.t.list2 b/tests/hash:ip6.t.list2
+index d3045ea..4ad01cf 100644
+--- a/tests/hash:ip6.t.list2
++++ b/tests/hash:ip6.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x4f3db7cd
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 504
+ References: 0
+ Number of entries: 2
+diff --git a/tests/hash:ip6.t.list3 b/tests/hash:ip6.t.list3
+index 9becbe5..c39e94b 100644
+--- a/tests/hash:ip6.t.list3
++++ b/tests/hash:ip6.t.list3
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet6 hashsize 128 maxelem 65536 netmask 64 timeout 4 bucketsize 12 initval 0xcc03ae18
++Header: family inet6 hashsize 128 maxelem 65536 netmask 64 timeout 4
+ Size in memory: 504
+ References: 0
+ Number of entries: 3
+diff --git a/tests/hash:mac.t.list0 b/tests/hash:mac.t.list0
+index 2c381ff..3b99138 100644
+--- a/tests/hash:mac.t.list0
++++ b/tests/hash:mac.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:mac
+ Revision: 1
+-Header: hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x851b9eb1
++Header: hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 464
+ References: 0
+ Number of entries: 1
+diff --git a/tests/hash:mac.t.list1 b/tests/hash:mac.t.list1
+index d464f74..7c2cd0b 100644
+--- a/tests/hash:mac.t.list1
++++ b/tests/hash:mac.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:mac
+ Revision: 1
+-Header: hashsize 1024 maxelem 65536 skbinfo bucketsize 12 initval 0x5698af00
++Header: hashsize 1024 maxelem 65536 skbinfo
+ Size in memory: 816
+ References: 0
+ Number of entries: 6
+diff --git a/tests/hash:mac.t.list2 b/tests/hash:mac.t.list2
+index bc7ecb0..aedf581 100644
+--- a/tests/hash:mac.t.list2
++++ b/tests/hash:mac.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:mac
+ Revision: 1
+-Header: hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x60a630a7
++Header: hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 464
+ References: 0
+ Number of entries: 2
+diff --git a/tests/hash:mac.t.list3 b/tests/hash:mac.t.list3
+index cc02314..a17ce93 100644
+--- a/tests/hash:mac.t.list3
++++ b/tests/hash:mac.t.list3
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:mac
+ Revision: 1
+-Header: hashsize 1024 maxelem 2 skbinfo bucketsize 12 initval 0x7c818884
++Header: hashsize 1024 maxelem 2 skbinfo
+ Size in memory: 496
+ References: 0
+ Number of entries: 2
+diff --git a/tests/hash:net,iface.t.list0 b/tests/hash:net,iface.t.list0
+index aeb3c52..a61f82a 100644
+--- a/tests/hash:net,iface.t.list0
++++ b/tests/hash:net,iface.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,iface
+ Revision: 8
+-Header: family inet hashsize 128 maxelem 65536 bucketsize 12 initval 0x9b9671af
++Header: family inet hashsize 128 maxelem 65536
+ Size in memory: 976
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net,iface.t.list1 b/tests/hash:net,iface.t.list1
+index bf07a73..d197d79 100644
+--- a/tests/hash:net,iface.t.list1
++++ b/tests/hash:net,iface.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,iface
+ Revision: 8
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x79761aac
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 3000
+ References: 0
+ Number of entries: 27
+diff --git a/tests/hash:net,iface.t.list2 b/tests/hash:net,iface.t.list2
+index 5dc128a..06f3877 100644
+--- a/tests/hash:net,iface.t.list2
++++ b/tests/hash:net,iface.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,iface
+ Revision: 8
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xb61bc401
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 976
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net,net.t.list0 b/tests/hash:net,net.t.list0
+index 14be3c2..d29590d 100644
+--- a/tests/hash:net,net.t.list0
++++ b/tests/hash:net,net.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,net
+ Revision: 3
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x24629b16
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 1048
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net,net.t.list1 b/tests/hash:net,net.t.list1
+index 7f1a1b6..bb126d6 100644
+--- a/tests/hash:net,net.t.list1
++++ b/tests/hash:net,net.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,net
+ Revision: 3
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0xff0645fb
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 1048
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:net,net.t.list2 b/tests/hash:net,net.t.list2
+index bb8d663..9561b4e 100644
+--- a/tests/hash:net,net.t.list2
++++ b/tests/hash:net,net.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,net
+ Revision: 3
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x957a74a3
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 1752
+ References: 0
+ Number of entries: 16
+diff --git a/tests/hash:net,port,net.t.list0 b/tests/hash:net,port,net.t.list0
+index 166b602..8a72c0e 100644
+--- a/tests/hash:net,port,net.t.list0
++++ b/tests/hash:net,port,net.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,port,net
+ Revision: 3
+-Header: family inet hashsize 1024 maxelem 65536 timeout 4 bucketsize 12 initval 0xf441dd10
++Header: family inet hashsize 1024 maxelem 65536 timeout 4
+ Size in memory: 1048
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net,port.t.list0 b/tests/hash:net,port.t.list0
+index afb7215..4c3a8b9 100644
+--- a/tests/hash:net,port.t.list0
++++ b/tests/hash:net,port.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,port
+ Revision: 8
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x34b03146
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 912
+ References: 0
+ Number of entries: 5
+diff --git a/tests/hash:net,port.t.list1 b/tests/hash:net,port.t.list1
+index 4ee3e5b..975bb5a 100644
+--- a/tests/hash:net,port.t.list1
++++ b/tests/hash:net,port.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,port
+ Revision: 8
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0xad2d00b2
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 784
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:net.t.list0 b/tests/hash:net.t.list0
+index fbab961..149a1b9 100644
+--- a/tests/hash:net.t.list0
++++ b/tests/hash:net.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net
+ Revision: 7
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0xb6f1b3fa
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 848
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net.t.list1 b/tests/hash:net.t.list1
+index afa8f0e..68bdae0 100644
+--- a/tests/hash:net.t.list1
++++ b/tests/hash:net.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net
+ Revision: 7
+-Header: family inet hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x9d02405f
++Header: family inet hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 848
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:net.t.list2 b/tests/hash:net.t.list2
+index 94bb184..74e4319 100644
+--- a/tests/hash:net.t.list2
++++ b/tests/hash:net.t.list2
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net
+ Revision: 7
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xadbf55c3
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 784
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net.t.list3 b/tests/hash:net.t.list3
+index 7b21185..16c0f73 100644
+--- a/tests/hash:net.t.list3
++++ b/tests/hash:net.t.list3
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net
+ Revision: 7
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xb5f93250
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 688
+ References: 0
+ Number of entries: 2
+diff --git a/tests/hash:net6,net6.t.list0 b/tests/hash:net6,net6.t.list0
+index 93d3aeb..b3d297f 100644
+--- a/tests/hash:net6,net6.t.list0
++++ b/tests/hash:net6,net6.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,net
+ Revision: 3
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x4f7b512c
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 2416
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net6,net6.t.list1 b/tests/hash:net6,net6.t.list1
+index 3aad97e..9997029 100644
+--- a/tests/hash:net6,net6.t.list1
++++ b/tests/hash:net6,net6.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,net
+ Revision: 3
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x3ab35d63
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 2416
+ References: 0
+ Number of entries: 0
+diff --git a/tests/hash:net6,port,net6.t.list0 b/tests/hash:net6,port,net6.t.list0
+index 3777d54..b3db00e 100644
+--- a/tests/hash:net6,port,net6.t.list0
++++ b/tests/hash:net6,port,net6.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,port,net
+ Revision: 3
+-Header: family inet6 hashsize 1024 maxelem 65536 bucketsize 12 initval 0x5b5fdcc8
++Header: family inet6 hashsize 1024 maxelem 65536
+ Size in memory: 2352
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net6,port.t.list0 b/tests/hash:net6,port.t.list0
+index ec3dae6..b3b0ccf 100644
+--- a/tests/hash:net6,port.t.list0
++++ b/tests/hash:net6,port.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,port
+ Revision: 8
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0xf2b7e0da
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 1856
+ References: 0
+ Number of entries: 5
+diff --git a/tests/hash:net6,port.t.list1 b/tests/hash:net6,port.t.list1
+index b3a8c00..34680a2 100644
+--- a/tests/hash:net6,port.t.list1
++++ b/tests/hash:net6,port.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net,port
+ Revision: 8
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x799a2fc6
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 1856
+ References: 0
+ Number of entries: 1
+diff --git a/tests/hash:net6.t.list0 b/tests/hash:net6.t.list0
+index c78fb3a..04fe2a7 100644
+--- a/tests/hash:net6.t.list0
++++ b/tests/hash:net6.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net
+ Revision: 7
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0xd3799c51
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 1760
+ References: 0
+ Number of entries: 4
+diff --git a/tests/hash:net6.t.list1 b/tests/hash:net6.t.list1
+index e0a08ec..e07017c 100644
+--- a/tests/hash:net6.t.list1
++++ b/tests/hash:net6.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net
+ Revision: 7
+-Header: family inet6 hashsize 128 maxelem 65536 timeout 4 bucketsize 12 initval 0x1fb859e4
++Header: family inet6 hashsize 128 maxelem 65536 timeout 4
+ Size in memory: 1760
+ References: 0
+ Number of entries: 0
+diff --git a/tests/iphash.t.large b/tests/iphash.t.large
+index dc36b2f..24cc125 100644
+--- a/tests/iphash.t.large
++++ b/tests/iphash.t.large
+@@ -1,4 +1,4 @@
+-create test hash:ip family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x00000000
++create test hash:ip family inet hashsize 1024 maxelem 65536
+ add test 10.10.0.0
+ add test 10.10.0.1
+ add test 10.10.0.2
+diff --git a/tests/iphash.t.list0 b/tests/iphash.t.list0
+index 3403b82..3763072 100644
+--- a/tests/iphash.t.list0
++++ b/tests/iphash.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 128 maxelem 65536 bucketsize 12 initval 0x9806dfda
++Header: family inet hashsize 128 maxelem 65536
+ Size in memory: 416
+ References: 0
+ Number of entries: 2
+diff --git a/tests/iphash.t.list1 b/tests/iphash.t.list1
+index 4ff0d69..889326b 100644
+--- a/tests/iphash.t.list1
++++ b/tests/iphash.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 128 maxelem 65536 netmask 24 bucketsize 12 initval 0x3bfba4f0
++Header: family inet hashsize 128 maxelem 65536 netmask 24
+ Size in memory: 416
+ References: 0
+ Number of entries: 2
+diff --git a/tests/iphash.t.restore.sorted b/tests/iphash.t.restore.sorted
+index 2cdd991..e944061 100644
+--- a/tests/iphash.t.restore.sorted
++++ b/tests/iphash.t.restore.sorted
+@@ -1,4 +1,4 @@
+-create test hash:ip family inet hashsize 128 maxelem 65536 bucketsize 12 initval 0x00000000
++create test hash:ip family inet hashsize 128 maxelem 65536
+ add test 10.0.0.0
+ add test 10.0.0.1
+ add test 10.0.0.2
+@@ -128,7 +128,7 @@ add test 10.0.0.125
+ add test 10.0.0.126
+ add test 10.0.0.127
+ add test 10.0.0.128
+-create test2 hash:ip family inet hashsize 128 maxelem 65536 bucketsize 12 initval 0x00000000
++create test2 hash:ip family inet hashsize 128 maxelem 65536
+ add test2 20.0.0.0
+ add test2 20.0.0.1
+ add test2 20.0.0.2
+diff --git a/tests/ipmarkhash.t.list0 b/tests/ipmarkhash.t.list0
+index 7042bc6..6a9b67c 100644
+--- a/tests/ipmarkhash.t.list0
++++ b/tests/ipmarkhash.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,mark
+ Revision: 3
+-Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536 bucketsize 12 initval 0x3ad108b0
++Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536
+ Size in memory: 528
+ References: 0
+ Number of entries: 4
+diff --git a/tests/ipmarkhash.t.list1 b/tests/ipmarkhash.t.list1
+index 30324c7..13b3bb6 100644
+--- a/tests/ipmarkhash.t.list1
++++ b/tests/ipmarkhash.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,mark
+ Revision: 3
+-Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536 bucketsize 12 initval 0xd0130277
++Header: family inet markmask 0xffffffff hashsize 1024 maxelem 65536
+ Size in memory: 528
+ References: 0
+ Number of entries: 4
+diff --git a/tests/ipporthash.t.list0 b/tests/ipporthash.t.list0
+index c87147e..e45618b 100644
+--- a/tests/ipporthash.t.list0
++++ b/tests/ipporthash.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x7888c8ef
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 528
+ References: 0
+ Number of entries: 4
+diff --git a/tests/ipporthash.t.list1 b/tests/ipporthash.t.list1
+index 5dac9fc..b4ab2ec 100644
+--- a/tests/ipporthash.t.list1
++++ b/tests/ipporthash.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xcb19e607
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 528
+ References: 0
+ Number of entries: 4
+diff --git a/tests/ipportiphash.t.list0 b/tests/ipportiphash.t.list0
+index f031796..844dae5 100644
+--- a/tests/ipportiphash.t.list0
++++ b/tests/ipportiphash.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,ip
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xf6f43069
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 568
+ References: 0
+ Number of entries: 4
+diff --git a/tests/ipportiphash.t.list1 b/tests/ipportiphash.t.list1
+index 17877b8..178cc9a 100644
+--- a/tests/ipportiphash.t.list1
++++ b/tests/ipportiphash.t.list1
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:ip,port,ip
+ Revision: 6
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xcd2e539b
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 456
+ References: 0
+ Number of entries: 2
+diff --git a/tests/nethash.t.list0 b/tests/nethash.t.list0
+index dad3dee..e0d03c2 100644
+--- a/tests/nethash.t.list0
++++ b/tests/nethash.t.list0
+@@ -1,7 +1,7 @@
+ Name: test
+ Type: hash:net
+ Revision: 7
+-Header: family inet hashsize 128 maxelem 65536 bucketsize 12 initval 0xdc096f08
++Header: family inet hashsize 128 maxelem 65536
+ Size in memory: 784
+ References: 0
+ Number of entries: 4
+diff --git a/tests/restore.t.list0 b/tests/restore.t.list0
+index 022a0b5..07ceeaa 100644
+--- a/tests/restore.t.list0
++++ b/tests/restore.t.list0
+@@ -1,7 +1,7 @@
+ Name: a
+ Type: hash:ip
+ Revision: 5
+-Header: family inet6 hashsize 1024 maxelem 65536 bucketsize 12 initval 0xf366ace6
++Header: family inet6 hashsize 1024 maxelem 65536
+ Size in memory: 536
+ References: 0
+ Number of entries: 3
+diff --git a/tests/restore.t.list1 b/tests/restore.t.list1
+index e270e52..3a267c9 100644
+--- a/tests/restore.t.list1
++++ b/tests/restore.t.list1
+@@ -1,7 +1,7 @@
+ Name: b
+ Type: hash:ip
+ Revision: 5
+-Header: family inet6 hashsize 1024 maxelem 65536 bucketsize 12 initval 0xdcbd231e
++Header: family inet6 hashsize 1024 maxelem 65536
+ Size in memory: 536
+ References: 0
+ Number of entries: 3
+diff --git a/tests/setlist.t.list4 b/tests/setlist.t.list4
+index 46c6a8c..691d258 100644
+--- a/tests/setlist.t.list4
++++ b/tests/setlist.t.list4
+@@ -1,7 +1,7 @@
+ Name: a
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x042092ea
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 336
+ References: 1
+ Number of entries: 0
+@@ -10,7 +10,7 @@ Members:
+ Name: b
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x05db211b
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 336
+ References: 0
+ Number of entries: 0
+@@ -19,7 +19,7 @@ Members:
+ Name: c
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0xf3109e51
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 336
+ References: 0
+ Number of entries: 0
+@@ -28,7 +28,7 @@ Members:
+ Name: d
+ Type: hash:ip
+ Revision: 5
+-Header: family inet hashsize 1024 maxelem 65536 bucketsize 12 initval 0x6c851a66
++Header: family inet hashsize 1024 maxelem 65536
+ Size in memory: 336
+ References: 0
+ Number of entries: 0

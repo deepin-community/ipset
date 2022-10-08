@@ -1,0 +1,18 @@
+Description: Fix ipset bash completion on bash (>= 4.4.18) 
+Author: Martin Großhauser <mgroszhauser@gmail.com>
+Forwarded: not-needed 
+Last-Update: 2018-07-22
+
+Index: ipset/utils/ipset_bash_completion/ipset
+===================================================================
+--- ipset.orig/utils/ipset_bash_completion/ipset
++++ ipset/utils/ipset_bash_completion/ipset
+@@ -972,7 +972,7 @@ __ltrim_colon_completions() {
+ # to avoid unwanted ltrim if we need to work with the list of hosts
+ # ugly hack - gimme better ;p
+ if ! declare -F _ipset_known_hosts &>/dev/null; then
+-eval '_ipset_known_hosts() { '$(declare -f _known_hosts_real | grep -v __ltrim_colon_completions | grep -Ev "^_known_hosts_real.*$" | grep -Ev "^(\{|\})")'; }'
++eval '_ipset_known_hosts() { '$(declare -f _known_hosts_real | grep -v __ltrim_colon_completions | grep -Ev "^_known_hosts_real.*$" | grep -Ev "^(\{|\})")' }'
+ fi
+ fi
+ 

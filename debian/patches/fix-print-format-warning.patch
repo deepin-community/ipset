@@ -1,0 +1,49 @@
+Description: Fix print format warning
+ Use PRIx64 for portablility over various architectures.
+ .
+ The format string for the 64bit number printing is incorrect,
+ the `%` sign is missing.
+ .
+ The force types casting over the uint32_t and uint64_t are unnecessary
+ which warned by the compiler on different architecture.
+
+Author: Neutron Soutmun <neo.neutron@gmail.com>
+Forwarded: https://marc.info/?l=netfilter-devel&m=161094595801439&w=2
+Last-Update: 2020-01-18
+
+From 9d16954421b329a376e2aa24c13916eb0caf5539 Mon Sep 17 00:00:00 2001
+From: Neutron Soutmun <neo.neutron@gmail.com>
+Date: Mon, 18 Jan 2021 11:19:17 +0700
+Subject: [PATCH] ipset: fix print format warning
+
+* Use PRIx64 for portablility over various architectures.
+* The format string for the 64bit number printing is incorrect,
+  the `%` sign is missing.
+* The force types casting over the uint32_t and uint64_t are unnecessary
+  which warned by the compiler on different architecture.
+
+Signed-off-by: Neutron Soutmun <neo.neutron@gmail.com>
+---
+ lib/print.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/lib/print.c b/lib/print.c
+index 0d86a98..a7ffd81 100644
+--- a/lib/print.c
++++ b/lib/print.c
+@@ -431,10 +431,10 @@ ipset_print_hexnumber(char *buf, unsigned int len,
+ 				*(const uint16_t *) number);
+ 	else if (maxsize == sizeof(uint32_t))
+ 		return snprintf(buf, len, "0x%08"PRIx32,
+-				(long unsigned) *(const uint32_t *) number);
++				*(const uint32_t *) number);
+ 	else if (maxsize == sizeof(uint64_t))
+-		return snprintf(buf, len, "0x016lx",
+-				(long long unsigned) *(const uint64_t *) number);
++		return snprintf(buf, len, "0x%016"PRIx64,
++				*(const uint64_t *) number);
+ 	else
+ 		assert(0);
+ 	return 0;
+-- 
+2.30.0

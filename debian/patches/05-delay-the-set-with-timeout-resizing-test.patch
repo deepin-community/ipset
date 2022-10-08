@@ -1,0 +1,20 @@
+Description: Delay the set with timeout resizing test
+ The test sometimes finish early and faster than 1 second, the condition
+ fail with false-positive 
+Author: Neutron Soutmun <neo.neutron@gmail.com>
+Forwarded: not-needed 
+Last-Update: 2014-04-04
+
+Index: ipset/tests/resizet.sh
+===================================================================
+--- ipset.orig/tests/resizet.sh
++++ ipset/tests/resizet.sh
+@@ -102,6 +102,8 @@ case "$2" in
+     	done
+     	;;
+ esac
++
++sleep 1
+ $ipset l test | grep ^$ip | while read x y z; do
+     if [ $z -lt 10 -o $z -gt 100 ]; then
+     	exit 1

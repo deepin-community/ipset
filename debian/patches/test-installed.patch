@@ -1,0 +1,18 @@
+Description: Make cidr.sh accept the IPSET_BIN environment variable 
+Author: Neutron Soutmun <neo.neutron@gmail.com>
+Forwarded: not-needed 
+Last-Update: 2017-05-30
+
+Index: ipset/tests/cidr.sh
+===================================================================
+--- ipset.orig/tests/cidr.sh
++++ ipset/tests/cidr.sh
+@@ -35,7 +35,7 @@ NETS="0.0.0.0/1
+ 255.255.255.252/31
+ 255.255.255.254/32"
+ 
+-ipset="../src/ipset"
++ipset=${IPSET_BIN:-../src/ipset}
+ 
+ case "$1" in
+ net)

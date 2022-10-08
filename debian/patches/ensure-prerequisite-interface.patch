@@ -1,0 +1,26 @@
+Description: Ensure that the prerequisite interface exist in system under test
+ The regression tests rely on the interface eth0 which may unavailable
+ in the system under test, eg. KVM Virtual Machine.
+ Therefore, add the script to check and add the dummy interface if necessary
+Author: Neutron Soutmun <neo.neutron@gmail.com>
+Forwarded: not-needed 
+Last-Update: 2021-01-17
+
+diff --git a/tests/runtest.sh b/tests/runtest.sh
+index 7afa1dd..047f344 100755
+--- a/tests/runtest.sh
++++ b/tests/runtest.sh
+@@ -76,6 +76,13 @@ fi
+ # Make sure the scripts are executable
+ chmod a+x check_* *.sh
+
++# Make sure the prerequisite interface exist
++if ! ip link show dev eth0 >/dev/null 2>&1; then
++  ip link add eth0 type dummy
++  ip addr add dev eth0 10.255.255.0/24
++  ip link set dev eth0 up
++fi
++
+ for types in $tests; do
+     $ipset -X test >/dev/null 2>&1
+     if [ -f $types ]; then

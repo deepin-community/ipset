@@ -1,0 +1,7 @@
+drop-unavailable-header-bucketsize-initval-from-test-results.patch
+test-installed.patch
+05-delay-the-set-with-timeout-resizing-test.patch
+fix-bash-completion.patch
+drop-bash-completion-with-hashbang.patch
+ensure-prerequisite-interface.patch
+fix-print-format-warning.patch

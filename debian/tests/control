@@ -1,0 +1,9 @@
+Tests: regression
+Depends: @,
+ iptables,
+ kmod,
+ netbase,
+ net-tools,
+ netmask,
+ sendip,
+Restrictions: needs-root isolation-machine allow-stderr

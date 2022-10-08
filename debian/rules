@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+export DH_VERBOSE=1
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+CFLAGS += -fstack-protector-all
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- --with-kmod=no --enable-settype-modules
+
+BASHCOMPL_INSTDIR := debian/tmp/usr/share/bash-completion/completions
+override_dh_auto_install:
+	mkdir -p $(BASHCOMPL_INSTDIR)
+	install --mode=0644 utils/ipset_bash_completion/ipset \
+	  $(BASHCOMPL_INSTDIR)/ipset
+	dh_auto_install
+
+override_dh_makeshlibs:
+	dh_makeshlibs -V

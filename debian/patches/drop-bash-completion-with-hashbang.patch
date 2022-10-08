@@ -1,0 +1,15 @@
+Description: Drop bash completion with hashbang 
+Author: Neutron Soutmun <neutrons@debian.org> 
+Forwarded: not-needed 
+Last-Update: 2020-05-17
+
+Index: ipset/utils/ipset_bash_completion/ipset
+===================================================================
+--- ipset.orig/utils/ipset_bash_completion/ipset
++++ ipset/utils/ipset_bash_completion/ipset
+@@ -1,5 +1,3 @@
+-#!/bin/bash
+-
+ # -----------------------------------------------------------------
+ # Programmable completion code for ipset (netfilter.org)
+ #
